@@ -1,0 +1,287 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ ad.title }}{% endblock %}
+
+{% block content %}
+
+    <!-- Start Page Title Area -->
+    <div class="page-title">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <h3>{{ ad.title }}</h3>
+                            <ul>
+                                <li><a href="{{ path ('homepage') }}">Accueil</a></li>
+                                <li>/</li>
+                                <li>{{ ad.title }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title Area -->
+
+    <!-- Start Blog Details Area -->
+    <section class="blog-details-area ptb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-7 col-sm-12">
+                    <div class="blog-details">
+                        <div class="img">
+
+                            {% if app.user and app.user == ad.author %}
+                                <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
+
+                                <a href="{{ path('ads_delete', {'slug':ad.slug}) }}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm(`Être vous sur de vouloir supprimer l'annonce {{ad.title}} ?`)">Supprimer
+                                </a>
+
+                            {% endif %}
+
+
+                            {% for image in ad.images %}
+                                <img src="{{ image.url }}" alt="services-details">
+                            {% endfor %}
+                            <div class="date">
+                                <span>15 Jan <br> 2018</span>
+                            </div>
+                        </div>
+
+                        <div class="blog-details-content">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-user"></i> {{ ad.author }}</a></li>
+                                <li><a href="#"><i class="fa fa-heart-o"></i> 301</a></li>
+                                <li><a href="#"><i class="fa fa-comments-o"></i> 31</a></li>
+                                <li><a href="#"><i class="fa fa-tag"></i> Divorce Case</a></li>
+                            </ul>
+                            <h3>{{ ad.title }}</h3>
+                            <p><b><i>{{ ad.introduction }}</i></b></p>
+
+                            <div class="text">
+
+                                <p>{{ ad.content|raw }}</p>
+
+                            </div>
+
+                            <blockquote class="blockquote text-center">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                            </blockquote>
+
+                            <div class="blog-categories">
+                                <ul>
+                                    <li class="title">Categories:</li>
+                                    <li><a href="#">Business Law</a></li>
+                                    <li>,</li>
+                                    <li><a href="#">Deffective Product</a></li>
+                                    <li>,</li>
+                                    <li><a href="#">Tax</a></li>
+                                    <li>,</li>
+                                    <li><a href="#">Divorce</a></li>
+                                    <li>,</li>
+                                    <li><a href="#">Insurance</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="blog-share-social">
+                                <ul>
+                                    <li class="title">Did You Like This Post? Share on:</li>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+
+                            <div class="post-prev-next-button">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <a href="#"><i class="fa fa-angle-left"></i> Prev Post</a>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                                        <a href="#">Next Post <i class="fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="post-comments">
+                                {% if ad.comments | length > 0 %}
+                                <h3>Commentaires ({{ ad.comments | length }})</h3>
+                                {% for comment in ad.comments %}
+                                <div class="single-post-comments">
+                                    <div class="img">
+                                        <img src="{{comment.author.picture}}" alt="{{comment.author.fullName}}" class="avatar avatar-medium">
+                                    </div>
+                                    <div class="content">
+                                        <span>Sep 10, 2018</span>
+                                        <h4>{{comment.author.fullName}}</h4>
+                                        <p>{{ comment.content }}</p>
+                                        <a href="#">Reply</a>
+                                        <ul>
+                                            <li>{% include 'partials/rating.html.twig' with {'rating': comment.rating} %}</li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                    <h3>Aucun Commentaire pour cette annonce</h3>
+
+
+                                {#<div class="single-post-comments left-mr">#}
+                                    {#<div class="img">#}
+                                        {#<img src="assets/img/client-avatar2.jpg" alt="avatar">#}
+                                    {#</div>#}
+                                    {#<div class="content">#}
+                                        {#<span>Sep 12, 2018</span>#}
+                                        {#<h4>John Smith</h4>#}
+                                        {#<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>#}
+                                        {#<a href="#">Reply</a>#}
+                                    {#</div>#}
+                                {#</div>#}
+                                {% endif %}
+                            </div>
+
+                            <div class="post-leave-reply">
+                                <h3>Leave a Reply</h3>
+                                <form>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="first-name" id="first-name" placeholder="First Name">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="last-name" id="last-name" placeholder="Last Name">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <textarea name="message" id="message" cols="30" rows="5" class="form-control" placeholder="Your message"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <button type="submit" class="btn btn-primary">Post Comment</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-5 col-sm-12">
+                    <div class="side-bar">
+                        <div class="side-bar-box search-box">
+                            <form>
+                                <input type="text" class="form-control" name="search" id="search-input" placeholder="Search">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+
+                        <div class="side-bar-box categories-box">
+                            <h3 class="title">Categories</h3>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> News (10)</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Legal News (15)</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Events (09)</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Resources (19)</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Illegal News (13)</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Legal Alerts (16)</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Investigations (05)</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="side-bar-box tags-box">
+                            <h3 class="title">Tags</h3>
+                            <ul>
+                                <li><a href="#">Resources</a></li>
+                                <li><a href="#">Law</a></li>
+                                <li><a href="#">Events</a></li>
+                                <li><a href="#">Illegal</a></li>
+                                <li><a href="#">Criminal</a></li>
+                                <li><a href="#">Family</a></li>
+                                <li><a href="#">News</a></li>
+                                <li><a href="#">Legal</a></li>
+                                <li><a href="#">Civil</a></li>
+                                <li><a href="#">Divorce</a></li>
+                                <li><a href="#">Investment</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="side-bar-box recent-post mb-0">
+                            <h3 class="title">Recent Post</h3>
+                            <div class="single-recent-post">
+                                <div class="recent-post-img">
+                                    <a href="#"><img src="assets/img/blog-img1.jpg" alt="blog-img"></a>
+                                </div>
+                                <div class="recent-post-content">
+                                    <ul>
+                                        <li><a href="#">By Admin</a></li>
+                                        <li><a href="#"><i class="fa fa-calendar"></i> Jan 8, 2018</a></li>
+                                    </ul>
+                                    <h3><a href="#">Employment tribunal hears cases against National</a></h3>
+                                </div>
+                            </div>
+
+                            <div class="single-recent-post">
+                                <div class="recent-post-img">
+                                    <a href="#"><img src="assets/img/blog-img2.jpg" alt="blog-img"></a>
+                                </div>
+                                <div class="recent-post-content">
+                                    <ul>
+                                        <li><a href="#">By Admin</a></li>
+                                        <li><a href="#"><i class="fa fa-calendar"></i> Jan 8, 2018</a></li>
+                                    </ul>
+                                    <h3><a href="#">Employment tribunal hears cases against National</a></h3>
+                                </div>
+                            </div>
+
+                            <div class="single-recent-post mb-0">
+                                <div class="recent-post-img">
+                                    <a href="#"><img src="assets/img/blog-img3.jpg" alt="blog-img"></a>
+                                </div>
+                                <div class="recent-post-content">
+                                    <ul>
+                                        <li><a href="#">By Admin</a></li>
+                                        <li><a href="#"><i class="fa fa-calendar"></i> Jan 8, 2018</a></li>
+                                    </ul>
+                                    <h3><a href="#">Employment tribunal hears cases against National</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Blog Details Area -->
+
+{% endblock %}

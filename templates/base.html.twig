@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="EnvyTheme">
+    <meta name="keywords" content="advisor, attorney, business, chartered, court, judge, lawyer, legal, advocate, barrister, company law, consultant, corporate, finance, law, law firm, legal adviser, solicitor">
+    <meta name="description" content="Abhy is a Creative and Responsive Professional HTML template for Lawyers, Attorneys, Corporate sites etc.">
+    <!-- Bootstrap Min CSS -->
+    {% block stylesheet %} {% endblock %}
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <!-- Animate Min CSS -->
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <!-- Font Awesome Min CSS -->
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <!-- Magnific Popup Min CSS -->
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+    <!-- IcoFont Min CSS -->
+    <link rel="stylesheet" href="/assets/css/icofont.css">
+    <!-- Owl Carousel Min CSS -->
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+    <!-- Classy Nav Min CSS-->
+    <link rel="stylesheet" href="/assets/css/classy-nav.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Responsive Min CSS -->
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+    <!-- Color Default CSS -->
+    <link rel="stylesheet" href="/assets/css/color/color-default.css">
+    <!-- code css site model -->
+    {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"#}
+          {#integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"#}
+          {#crossorigin="anonymous">#}
+    {#<link rel="stylesheet" href="/css/app.css">#}
+    <!-- fin code site model -->
+
+    <title>{% block title %} RED {% endblock %}
+    </title>
+</head>
+
+<body>
+{#<!-- Start Preloader Area -->#}
+{#<div id="preloader-area">#}
+{#<div class="loader">#}
+{#<div id="largeBox"></div>#}
+{#<div id="smallBox"></div>#}
+{#</div>#}
+{#</div>#}
+{#<!-- End Preloader Area -->#}
+
+<!-- Start Top Header Area -->
+{% include '/partials/_header.html.twig' %}
+<!-- End Top Header Area -->
+<!-- Start Main Menu Area -->
+
+<!-- End Search Popup Area -->
+<!-- Contenu du site -->
+{% block content %}
+{% endblock %}
+<!-- fin de contenu -->
+<!-- Start Footer Area -->
+{% include 'partials/_footer.html.twig' %}
+<!-- End Footer Area -->
+<div class="go-top"><i class="fa fa-angle-up"></i></div>
+<!-- jQuery Min JS -->
+<script src="/assets/js/jquery-min.js"></script>
+<!-- Prpper JS -->
+<script src="/assets/js/popper.min.js"></script>
+<!-- Bootstrap Min JS -->
+<script src="/assets/js/bootstrap.min.js"></script>
+<!-- Jquery Magnific Popup Min Js -->
+<script src="/assets/js/jquery.magnific-popup.min.js"></script>
+<!-- Jquery Mixitup Min Js -->
+<script src="/assets/js/jquery.mixitup.min.js"></script>
+<!-- Owl Carousel Min Js -->
+<script src="/assets/js/owl.carousel.min.js"></script>
+<!-- Jquery CounterUp Min JS -->
+<script src="/assets/js/jquery.counterup.min.js"></script>
+<!-- Waypoints Min Js -->
+<script src="/assets/js/waypoints.min.js"></script>
+<!-- Wow Min JS -->
+<script src="/assets/js/wow.min.js"></script>
+<!-- Classy Nav Min JS -->
+<script src="/assets/js/classy-nav.min.js"></script>
+<!-- Form Validator Min JS -->
+<script src="/assets/js/form-validator.min.js"></script>
+<!-- Contact Form Min JS -->
+<script src="/assets/js/contact-form-script.js"></script>
+<!-- Main JS -->
+<script src="/assets/js/main.js"></script>
+{% block javascript %}{% endblock %}
+</body>
+</html>
