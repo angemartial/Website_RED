@@ -38,12 +38,6 @@ class AnnonceType extends ApplicationType
             ->add('content',
                 TextareaType::class, $this->getConfiguration("Description","Entrez une description de votre appartement"))
 
-            ->add('rooms', 
-                IntegerType::class, $this->getConfiguration("Nombre de chambres","Entrez le nombre de chambres"))
-
-            ->add('price', 
-                MoneyType::class, $this->getConfiguration("Prix par nuit","Entrez un prix par nuit"))
-
             ->add('images',
                 CollectionType::class,
                 [

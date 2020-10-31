@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use     App\Entity\User;
 use App\Form\AccountType;
 use App\Form\RegisterType;
 use App\Entity\UpdatePassword;

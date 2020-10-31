@@ -84,14 +84,6 @@ class AdminAdController extends AbstractController
      */
     public function delete(Ad $ad,Request $request,ObjectManager $manager)
     {
-        if(count($ad->getBookings()) > 0){
-            $this->addFlash(
-                'warning',
-                "Vous ne pouvez pas supprimer l'annonce <strong> {$ad->getTitle()} 
-                </strong> car elle contient déjà des réservations "
-            ); 
-        }
-        else{
             $manager->remove($ad);
             $manager->flush();
 
@@ -99,7 +91,7 @@ class AdminAdController extends AbstractController
                 'success',
                 "L'annonce {$ad->getTitle()} a bien été supprimée "
         );
-        }
+
         
 
         return $this->redirectToRoute('admin_ads_index');

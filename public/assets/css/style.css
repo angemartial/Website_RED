@@ -198,7 +198,7 @@ p {
 .form-control {
 	padding: 12px;
 	font-size: 14px;
-	border: none;
+	/*border: 1px;*/
 	border-radius: 0;
 	height: 45px;
 }

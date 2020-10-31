@@ -17,7 +17,7 @@ class AdminDashboardController extends AbstractController
         //$users = $statsService->getUsersCount();
         //$ads = $statsService->getAdsCount();
        // $comments = $statsService->getCommentsCount();
-       // $bookings = $statsService->getBookingsCount();
+
 
        $stats = $statsService->getStats();
         

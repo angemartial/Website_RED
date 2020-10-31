@@ -19,9 +19,9 @@ class StatService {
         $users    = $this->getUsersCount();
         $ads      = $this->getAdsCount();
         $comments = $this->getCommentsCount();
-        $bookings = $this->getBookingsCount();
 
-        return compact('users','ads','comments','bookings');
+
+        return compact('users','ads','comments');
     }
 
     public function getAdsStats($direction){
@@ -47,7 +47,5 @@ class StatService {
     public function getCommentsCount(){
        return $this->manager->createQuery('SELECT COUNT(b) FROM App\Entity\Comment b')->getSingleScalarResult();
     }
-    public function getBookingsCount(){
-       return $this->manager->createQuery('SELECT COUNT(c) FROM App\Entity\Booking c')->getSingleScalarResult();
-    }
+
 }
