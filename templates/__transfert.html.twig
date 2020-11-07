@@ -1,81 +1,112 @@
-<div class="container-fluid mt--6">
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <!-- Card header -->
-                <div class="card-header border-0">
-                    <h3 class="mb-0">Annonces</h3>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+    <meta name="author" content="Creative Tim">
+    <title>Admin - RED</title>
+    <!-- Favicon -->
+    {#<link rel="icon" href="../assets/img/brand/favicon.png" type="image/png">#}
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <!-- Icons -->
+    <link rel="stylesheet" href="/admin/assets/vendor/nucleo/css/nucleo.css" type="text/css">
+    <link rel="stylesheet" href="/admin/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+    <!-- Argon CSS -->
+    <link rel="stylesheet" href="/admin/assets/css/argon.css?v=1.2.0" type="text/css">
+</head>
+
+<body class="bg-default">
+<!-- Navbar -->
+
+<div class="main-content">
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+        <div class="container">
+            <div class="header-body text-center mb-7">
+                <div class="row justify-content-center">
+                    <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+                        <h1 class="text-white">Bienvenue</h1>
+                    </div>
                 </div>
-                <!-- Light table -->
-                <div class="table-responsive">
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                        <tr>
-                            <th scope="col" class="sort" data-sort="name">Titres</th>
-                            <th scope="col">Auteurs</th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody class="list">
-                        {% for ad in ads %}
-                            <tr>
-                                <th scope="row">
-                                    <div class="media align-items-center">
-                                        <div class="media-body">
-                                            <span class="name mb-0 text-sm">{{ ad.title }}</span>
-                                        </div>
+            </div>
+        </div>
+        <div class="separator separator-bottom separator-skew zindex-100">
+            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7">
+                <div class="card bg-secondary border-0 mb-0">
+
+                    <div class="card-body px-lg-5 py-lg-5">
+                        {% if hasError  %}
+                            <div class="alert alert-warning"><p>Le nom utilisateur ou le mot de passe est invalide</p></div>
+                        {% endif %}
+                        <div class="text-center text-muted mb-4">
+                            <small>Connexion à l'administration</small>
+                        </div>
+                        <form method="post">
+                            <div class="form-group mb-3">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                </th>
-                                <td>
-                                    <div class="avatar-group">
-                                        <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                            <img alt="{{ ad.firstName }}" src="{{ ad.picture }}">
-                                        </a>
+                                    <input class="form-control" placeholder="Email" type="email" name="_username" value="{{ username }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown">
-                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a href="{{ path('admin_ads_edit', {'id': ad.id}) }}" class="dropdown-item" href="#">Modifier</a>
-                                            <a href="{{ path("admin_ads_delete", {'id': ad.id}) }}" class="dropdown-item" href="#">Supprimer</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                                    <input class="form-control" placeholder="Mot de passe" name="_password"
+                                           required >
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary my-4">connexion !</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <!-- Card footer -->
-                <div class="card-footer py-4">
-                    <nav aria-label="...">
-                        <ul class="pagination justify-content-end mb-0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">
-                                    <i class="fas fa-angle-left"></i>
-                                    <span class="sr-only">Précédent</span>
-                                </a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">
-                                    <i class="fas fa-angle-right"></i>
-                                    <span class="sr-only">Suivant</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                <div class="row mt-6">
+                    <div class="col-6">
+                        <a href="#" class="text-light"><small>Mot de passe oublié</small></a>                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-    <!-- Dark table -->
+</div>
+<!-- Footer -->
+<footer class="py-5" id="footer-main">
+    <div class="container">
+        <div class="row align-items-center justify-content-xl-between">
+            <div class="col-xl-12">
+                <div class="copyright text-center text-xl-left text-muted">
+                    &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">RED</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Argon Scripts -->
+<!-- Core -->
+<script src="/admin/assets/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/admin/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/admin/assets/vendor/js-cookie/js.cookie.js"></script>
+<script src="/admin/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+<script src="/admin/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+<!-- Argon JS -->
+<script src="/admin/assets/js/argon.js?v=1.2.0"></script>
+</body>
+
+</html>
