@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -30,10 +32,14 @@ class Image
     private $caption;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Ad", inversedBy="images")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity=AboutUs::class, mappedBy="aboutImage")
      */
-    private $Ad;
+    private $aboutUs;
+
+    public function __construct()
+    {
+        $this->aboutUs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -64,14 +70,32 @@ class Image
         return $this;
     }
 
-    public function getAd(): ?Ad
+    /**
+     * @return Collection|AboutUs[]
+     */
+    public function getAboutUs(): Collection
     {
-        return $this->Ad;
+        return $this->aboutUs;
     }
 
-    public function setAd(?Ad $Ad): self
+    public function addAboutUs(AboutUs $aboutUs): self
     {
-        $this->Ad = $Ad;
+        if (!$this->aboutUs->contains($aboutUs)) {
+            $this->aboutUs[] = $aboutUs;
+            $aboutUs->setAboutImage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAboutUs(AboutUs $aboutUs): self
+    {
+        if ($this->aboutUs->removeElement($aboutUs)) {
+            // set the owning side to null (unless already changed)
+            if ($aboutUs->getAboutImage() === $this) {
+                $aboutUs->setAboutImage(null);
+            }
+        }
 
         return $this;
     }

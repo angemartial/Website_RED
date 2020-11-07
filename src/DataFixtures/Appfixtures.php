@@ -81,27 +81,27 @@ class Appfixtures extends Fixture
             $ad = new Ad();
 
             $title           = $faker->sentence();
-            $coverImage      = $faker->imageUrl(1000,350);
+
             $introduction    = $faker->paragraph(2);
             $content         = '<p>' .join('</p><p>', $faker->paragraphs(5)) .'</P>';
             $user            = $users[mt_rand(0 , count($users) -1)];
 
             $ad->setTitle($title)
 
-                ->setCoverImage($coverImage)
+
                 ->setIntroduction($introduction)
                 ->setContent($content)
                 ->setAuthor($user);
 
-            for($j = 1; $j <= mt_rand(2 , 5); $j++){
-                $image = new Image();
-
-                $image->setUrl($faker->imageUrl())
-                    ->setCaption($faker->sentence())
-                    ->setAd($ad);
-
-                $manager->persist($image);
-            }
+//            for($j = 1; $j <= mt_rand(2 , 5); $j++){
+//                $image = new Image();
+//
+//                $image->setUrl($faker->imageUrl())
+//                    ->setCaption($faker->sentence())
+//                    ->setAd($ad);
+//
+//                $manager->persist($image);
+//            }
             // gestion des commentaires
             for($j = 1; $j <= mt_rand(0, 10); $j++){
 

@@ -34,17 +34,16 @@ class PaginationService {
     }
 
     public function getTemplatePath(){
-        return $templatePath;
+        return $this->templatePath;
     }
 
     public function setRoute($route){
         $this->route = $route;
-
         return $this;
     }
 
     public function getRoute(){
-        return $route;
+        return $this->route;
     }
 
 

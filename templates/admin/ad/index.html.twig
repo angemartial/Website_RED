@@ -3,50 +3,93 @@
 {% block title %} Ads Dashboard!{% endblock %}
 
 {% block body %}
-<div class="container-fuid">
-    <h1 class="my-5">Gestion des annonces</h1>
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Titre</th>
-                    <th>Auteur</th>
-                    <th class="text-center">Réservations</th>
-                    <th class="text-center">Note</th>
-                    <th>Actions</th>                                  
-                </tr>            
-            </thead>  
-
-            <tbody>
-                {% for ad in pagination.data %}
-                <tr>
-                    <td>{{ ad.id }}</td>                    
-                    <td>{{ ad.title }}</td>                    
-                    <td>
-                        <img src="{{ad.author.picture}}" alt="avatar de {{ad.author.fullName}}" 
-                        class="avatar avatar-micro">{{ ad.author.fullName }}
-                    </td>                    
-                    <td class="text-center">
-                        <span class="badge badge-primary rounded">{{ ad.bookings | length }}</span>
-                    </td>                    
-                    <td class="text-center">
-                        <span class="badge badge-primary rounded">{{ ad.avgRatings | number_format(1, ',', ' ') }}</span>
-                    </td>                    
-                    <td>
-                        <a href="{{ path('admin_ads_edit', {'id': ad.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                        <a href="{{ path("admin_ads_delete", {'id': ad.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                    </td>                    
-                </tr>
-                {% endfor %}
-            </tbody> 
-
-
-
-
-        </table>
-
-       {{ pagination.display() }}
-
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body py-2">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h1 text-white d-inline-block mb-0">Actualités</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="{{ path ('admin_dashboard') }}">Tableau de bord</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Actualités</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 col-5 text-right">
+                    <a href="#" class="btn btn-sm btn-neutral">New</a>
+                    <a href="#" class="btn btn-sm btn-neutral">Filters</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- table content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Actualités</h3>
+                </div>
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Id</th>
+                            <th scope="col" class="sort" data-sort="name">Titres</th>
+                            <th scope="col">Auteurs</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="list">
+                        {% for ad in pagination.data %}
+                            <tr>
+                                <td class="budget">
+                                    {{ ad.id }}
+                                </td>
+
+                                <th scope="row">
+                                    <div class="media align-items-center">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{ ad.title }}</span>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td>
+                                    <div class="avatar-group">
+                                        <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
+                                            <img alt="{{ad.author.fullName}}" src="{{ad.author.picture}}">
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="text-right">
+                                    <div class="dropdown">
+                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            <a href="{{ path('admin_ads_edit', {'id': ad.id}) }}" class="dropdown-item" href="#">Modifier</a>
+                                            <a href="{{ path("admin_ads_delete", {'id': ad.id}) }}" class="dropdown-item" href="#">Supprimer</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Card footer -->
+
+                {{ pagination.display() }}
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}

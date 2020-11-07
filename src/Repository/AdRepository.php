@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Ad;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -29,6 +30,19 @@ class AdRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
     }
+
+
+
+//    /**
+//    * @return Query
+//    */
+//
+//    public function findAllVisibleQurey($value) : Query
+//    {
+//        return $this->findAllVisible()
+//                ->getQuery();
+//    }
+
 
     // /**
     //  * @return Ad[] Returns an array of Ad objects

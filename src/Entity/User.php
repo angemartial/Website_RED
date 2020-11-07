@@ -342,6 +342,6 @@ class User implements UserInterface
      * @return string
      */
     public function __toString(){
-        return $this->firstName;
+        return $this->email;
     }
 }

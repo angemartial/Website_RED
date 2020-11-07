@@ -49,11 +49,7 @@ class AdController extends AbstractController
 
        
         if($form->isSubmitted() && $form->isValid()){
-            
-            foreach($ad->getImages() as $image){
-                $image->setAd($ad);
-                $manager->persist($image);
-            }
+
             //joindre l'utilisateur connecté à son annonce
 
             $ad->setAuthor($this-getUser());
@@ -96,11 +92,7 @@ class AdController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            
-            foreach($ad->getImages() as $image){
-                $image->setAd($ad);
-                $manager->persist($image);
-            }
+
             $manager->persist($ad);
             $manager->flush();
 

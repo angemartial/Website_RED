@@ -7,14 +7,18 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdRepository")
  * @ORM\HasLifecycleCallbacks
  * @UniqueEntity(fields={"title"}, message="ce titre est déjà utilisé par une autre annonce, merci de le modifier")
+ * @Vich\Uploadable
  */
 class Ad
 {
@@ -55,16 +59,16 @@ class Ad
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Url
+     * @var File|null
+     * @Vich\UploadableField(mapping="upload_image", fileNameProperty="filename")
      */
-    private $coverImage;
+    private $imageFile;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="Ad", orphanRemoval=true)
-     * @Assert\Valid()
+     * @ORM\Column(type="string")
+     * @var string|null
      */
-    private $images;
+    private $filename;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="ads")
@@ -76,6 +80,11 @@ class Ad
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="ad", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $update_at;
 
     public function __construct()
     {
@@ -195,6 +204,47 @@ class Ad
         return $this;
     }
 
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File $imageFile
+     * @return Ad
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile){
+            $this->update_at = new \DateTime('now');
+            return $this;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param mixed $filename
+     * @return Ad
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+        return $this;
+    }
+
+
+
     public function getIntroduction(): ?string
     {
         return $this->introduction;
@@ -215,49 +265,6 @@ class Ad
     public function setContent(string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getCoverImage(): ?string
-    {
-        return $this->coverImage;
-    }
-
-    public function setCoverImage(string $coverImage): self
-    {
-        $this->coverImage = $coverImage;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Image[]
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setAd($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
-            // set the owning side to null (unless already changed)
-            if ($image->getAd() === $this) {
-                $image->setAd(null);
-            }
-        }
 
         return $this;
     }
@@ -301,6 +308,18 @@ class Ad
                 $comment->setAd(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->update_at;
+    }
+
+    public function setUpdateAt(\DateTimeInterface $update_at): self
+    {
+        $this->update_at = $update_at;
 
         return $this;
     }
