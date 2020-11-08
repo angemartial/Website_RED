@@ -40,7 +40,7 @@ class AnnonceType extends ApplicationType
             ->add('introduction',
                 TextType::class, $this->getConfiguration("Introduction","Donnez une description globale de l'appartement"))
 
-            ->add('content', CKEditorType::class);
+            ->add('content', CKEditorType::class, $this->getConfiguration("Zone de texte", ""));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -11,6 +11,10 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class AdminAdController extends AbstractController
 {
@@ -27,6 +31,50 @@ class AdminAdController extends AbstractController
         return $this->render('admin/ad/index.html.twig', [
             'pagination' => $pagination
         ]);
+    }
+
+
+    /**
+     * permet de créer une nouvelle annonce
+     *
+     * @Route("/admin/ads/new", name ="admin_ads_create")
+     *
+     *
+     * @return Response
+     */
+    public function create(Request $request, ObjectManager $manager)
+    {
+        $ad = new Ad();
+
+        $form = $this->createForm(AnnonceType::class, $ad);
+
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){
+            //joindre l'utilisateur connecté à son annonce
+
+//            $ad->setAuthor($this-getUser());
+
+            $manager->persist($ad);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre annonce' .$ad->getTitle(). 'a bien été envoyé'
+            );
+
+            return $this->redirectToRoute('ads_show', [
+                'slug' => $ad->getSlug()
+            ]);
+
+        }
+
+
+        return $this->render('admin/ad/new.html.twig',[
+            'form' => $form->createView()
+        ]);
+
     }
 
 
@@ -73,14 +121,6 @@ class AdminAdController extends AbstractController
      */
     public function delete(Ad $ad,Request $request,ObjectManager $manager)
     {
-        if(count($ad->getBookings()) > 0){
-            $this->addFlash(
-                'warning',
-                "Vous ne pouvez pas supprimer l'annonce <strong> {$ad->getTitle()} 
-                </strong> car elle contient déjà des réservations "
-            );
-        }
-        else{
             $manager->remove($ad);
             $manager->flush();
 
@@ -88,9 +128,6 @@ class AdminAdController extends AbstractController
                 'success',
                 "L'annonce {$ad->getTitle()} a bien été supprimée "
             );
-        }
-
-
         return $this->redirectToRoute('admin_ads_index');
 
     }

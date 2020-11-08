@@ -107,6 +107,14 @@ class Ad
     }
 
     /**
+     * @ORM\PrePersist
+     */
+    public function setupdateAtValue()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
      * permet d'initialiser un slug!
      * 
      * @ORM\PrePersist
@@ -312,11 +320,18 @@ class Ad
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getUpdateAt(): ?\DateTimeInterface
     {
         return $this->update_at;
     }
 
+    /**
+     * @param \DateTimeInterface|null $updated_at
+     *
+     */
     public function setUpdateAt(\DateTimeInterface $update_at): self
     {
         $this->update_at = $update_at;
